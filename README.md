@@ -171,7 +171,7 @@ root
 │   │   │   ├── SettingsContext.js
 │   │   │   ├── SettingsForm.js
 │   │   │   └── useSettings.js
-│   │   └── Signup
+│   │   ├── Signup
 │   │   │   ├── __tests__
 │   │   │   │   └── Form.js
 │   │   │   ├── index.js
@@ -226,7 +226,16 @@ function App() {
 
 ---
 
-## App Component Basics
+## App Component
+
+Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page provides an introduction to the idea of components.
+
+Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
+
+React Supports Class Based or Functional Components
+With react there is more than one approach to compose your UI. If you like complexity, forgive my sarcasm then you can use class based components. A class component is Just a class that extends React.Component, it has a render method that is called to build and return our UI.
+
+Some things should be simple and straightforward so I prefer using functional components. You just declare and export a function that returns our UI as we did in the earlier example. So whatever style you are comfortable with , react has got you.
 
 Whenever we create a component function, we must export it.
 
@@ -333,7 +342,7 @@ export default App;
 
 ## Multiple Components
 
-Create `Navbar` Component
+Create `Navbar` Component in Navbar.js file
 
 ```sh
 const Navbar = () => {
@@ -351,7 +360,29 @@ const Navbar = () => {
 export default Navbar;
 ```
 
-Create `Home` Component
+Import `Navbar` Component in App.js file
+
+```sh
+import './App.css';
+import Navbar from './Navbar';
+
+function App() {
+  return (
+    <div className="App">
+      <Navbar />          // self closing tag
+      <div className="content">
+        <h1>App Component</h1>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+
+
+Create `Home` Component in Home.js file
 
 ```sh
 const Home = () => {
@@ -365,7 +396,8 @@ const Home = () => {
 export default Home;
 ```
 
-Modify App.js File
+
+Import `Home` Component in App.js file
 
 ```sh
 import './App.css';
@@ -397,6 +429,10 @@ export default App;
 4. CSS Modules
 5. CSS-in-JS
 
+### `Global Stylesheet`
+Delete App.css and prepare index.css as our Global Stylesheet. 
+
+In index.css file
 ```sh
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
@@ -435,27 +471,249 @@ export default App;
 }
 ```
 
+
+### `Inline Style`
+In `Navbar` component we can do Inline Style. 
+
+In Navbar.js file
+```sh
+const Navbar = () => {
+  return (
+    <nav className="navbar">
+      <h1>The Dojo Blog</h1>
+      <div className="links">
+        <a href="/">Home</a>
+        <a href="/create" style={{ 
+          color: 'white', 
+          backgroundColor: '#f1356d',
+          borderRadius: '8px' 
+        }}>New Blog</a>
+      </div>
+    </nav>
+  );
+}
+ 
+export default Navbar;
+```
+
 ---
 
 ## Click Events
-Add events in react.
+There are many events like.. hover, click, form submission events etc. So, in Home component we will create a button and fire it by invoking a function (handleClick). Then we will create another button and function by passing arguments.
+
+In Home.js file
+```sh
+const Home = () => {
+
+  const handleClick = (e) => {
+    console.log('hello ninjas', e);
+  }
+
+  const handleClickAgain = (name, e) => {
+    console.log('hello ' + name, e.target);
+  }
+
+  return (
+    <div className="home">
+      <h2>Homepage</h2>
+      <button onClick={handleClick}>Click me</button>
+      <button onClick={(e) => handleClickAgain('mario', e)}>Click me again</button>
+    </div>
+  );
+}
+
+export default Home;
+```
+
+---
+
+## State `useState`
+Using State (useState hook)
+
+React components has a built-in state object. The state object is where you store property values that belongs to the component. When the state object changes, the component re-renders.
+
+React Hooks
+This is one of the holy grail of react. React hooks just makes your work so much easier, react hooks are designed to simplify difficult tasks like re-rendering the UI, managing state, picking an element from the DOM and lots more. There is a hook for most things you want and if there isn’t any react hook that meets your need then you can also build your own custom hook.
+
+We used a very simple react hook here that allows us to update the state of a component and re render the UI anytime there is a state change. Now most people would say, there are other frameworks that makes state management a built in feature, say for instance Svelte or Angular which is reactive by default, but this way is more concise when compared to using vanilla JavaScript or even jQuery.
+
+This ensures that there is less broiler plate code, we would have written more code if this was done without hooks or from a class based component. Hooks also eliminate the need for listening to multiple life cycle events on components, the hook manages all that behind the scene for you.
+
+Hook in react is a special type of function that does a special type if job. You can tell a hook by it's name because it starts with 'use'. So useState hook gives us a way to make a reactive value and also provides us way to change the value. 
+
+We can use the hook as many times as we want in a component for different values. This value can be an array, object, boolean, string, number.
+
+So, when you need a reactive value that might change in some point we will use `useState` hook todo that. We pass in an initial value 'mario' and we can output that value in a template { } and then we call the `set` function which is second value in the array [ name, setName ] to update it so that triggers a re-render and the new value is going to output to the browser. 
+
+You can't put hooks inside if conditions, functions, loops etc. So, the can't be nested. Hooks will always stay at the top level in your App component.
+
+When useState comes in a variable, the array must be destructured inline and returned 2 values.
+
+```sh
+const [name, setName] = useState(0);
+
+# name (1st Value or reactive Value) = currentState
+# setName (2nd Value or setter) = setter function that updates currentState
+# useState(0) = hook takes 1 optional argument which is current or default state
+```
+
+React update state in batches:
+
+```sh
+import { useState } from "react";
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  const add = () => {
+    setCount(count + 1);
+    setCount(count + 1);  // batch not working
+  }
+  const subtract = () => {
+    setCount(count - 1);
+  }
+
+  return (
+    <div className="home">
+      <h1>{count}</h1>
+
+      <div className="calc">
+        <button onClick={add}>+</button>
+        <button onClick={subtract}>-</button>
+      </div>
+
+      <div className="reset">
+        <button onClick={() => setCount(0)}>Reset</button>
+      </div>
+    </div>
+  );
+}
+ 
+export default Home;
+```
+
+
+Using `set` function right way by correcting above snippet:
+
+```sh
+  const add = () => {
+    setCount(count + 1);
+    setCount(count + 1);  // now batch works
+  }
+  const subtract = () => {
+    setCount(count - 1);
+  }
+```
+
+
+
+In Home.js file
+```sh
+import { useState } from "react";
+
+const Home = () => {
+  // let name = 'mario';
+  const [name, setName] = useState('mario');    // hook
+  const [age, setAge] = useState(25);   // setAge is a function
+
+  const handleClick = () => {
+    // name = 'luigi';
+    setName('luigi');
+    setAge(30);
+  }
+
+  return (
+    <div className="home">
+      <h2>Homepage</h2>
+      <p>{ name } is { age } years old</p>
+      <button onClick={handleClick}>Click me</button>
+    </div>
+  );
+}
+ 
+export default Home;
+```
 
 
 ---
 
-## Using State `useState`
-Using State (useState hook)
+## 10 Hooks
+State = any data that changes application and so does ui.
+React has 10 built-in Hooks:
+
+Basic Hooks
+- useState = handle reactive data
+- useEffect = change over component life-cycle 
+- useContext
+Additional Hooks
+- useReducer
+- useCallback
+- useMemo
+- useRef
+- useImperativeHandle
+- useLayoutEffect
+- useDebugValue
 
 
 ---
 
 ## Outputting Lists
-Outputting lists in React
+Outputting lists of data in React. We have list of data which we have store in useState and then we map through that data so that we take each item into that as we map through it and we output a template for each one and for each one it has a key property (unique id) 
+
+In Home.js file
+```sh
+import { useState } from "react";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState([
+    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
+    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
+    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
+  ])
+
+  return (
+    <div className="home">
+      {blogs.map(blog => (
+        <div className="blog-preview" key={blog.id} >
+          <h2>{ blog.title }</h2>
+          <p>Written by { blog.author }</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+ 
+export default Home;
+```
+
+
+In index.css file add additional css snippet
+```sh
+/* blog previews / list */
+.blog-preview {
+  padding: 10px 16px;
+  margin: 20px 0;
+  border-bottom: 1px solid #fafafa;
+}
+.blog-preview:hover {
+  box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+}
+.blog-preview h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 8px;
+}
+```
+
+
 
 ---
 
 ## Props
-Props in React
+Props are arguments passed into React components. Props are passed to components via HTML attributes. props stands for properties.
+
+
+
 
 ---
 
@@ -489,36 +747,6 @@ Fetching Data with useEffect
 
 
 
----
-
-## Component
-
-Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page provides an introduction to the idea of components.
-
-Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
-
-React Supports Class Based or Functional Components
-With react there is more than one approach to compose your UI. If you like complexity, forgive my sarcasm then you can use class based components. A class component is Just a class that extends React.Component, it has a render method that is called to build and return our UI.
-
-Some things should be simple and straightforward so I prefer using functional components. You just declare and export a function that returns our UI as we did in the earlier example. So whatever style you are comfortable with , react has got you.
-
----
-
-## ReactHooks
-
-React Hooks
-This is one of the holy grail of react. React hooks just makes your work so much easier, react hooks are designed to simplify difficult tasks like re-rendering the UI, managing state, picking an element from the DOM and lots more. There is a hook for most things you want and if there isn’t any react hook that meets your need then you can also build your own custom hook.
-
-We used a very simple react hook here that allows us to update the state of a component and re render the UI anytime there is a state change. Now most people would say, there are other frameworks that makes state management a built in feature, say for instance Svelte or Angular which is reactive by default, but this way is more concise when compared to using vanilla JavaScript or even jQuery.
-
-This ensures that there is less broiler plate code, we would have written more code if this was done without hooks or from a class based component. Hooks also eliminate the need for listening to multiple life cycle events on components, the hook manages all that behind the scene for you.
-
----
-
-## Props
-
-Props are arguments passed into React components. Props are passed to components via HTML attributes. props stands for properties.
-
 
 ---
 
@@ -541,6 +769,8 @@ Feel free to Contact me on [Twitter](https://mobile.twitter.com/jayedrashid), se
 
 
 <img height="20" src="https://www.bollywoodmdb.com/images/uparrow.gif"> [back to top](#quick-links)<br>
+
+
 
 
 
