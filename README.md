@@ -2,14 +2,14 @@
 `A JavaScript Library For Building User Interfaces`
 
 <p align="center">
- <img width="100px" src="https://cdn.fs.teachablecdn.com/6Rl23AySyxnjtTrQ2VVw" align="center" alt="The Net Ninja logo" />
+ <img width="400px" src="https://miro.medium.com/max/1400/0*EitUXT-pqbaQSCTt.gif" align="center" alt="React JS logo" />
  <h2 align="center">My React Journey Begins</h2>
 </p>
 
 
 Starting React JS from sources: 
 <p align="center">
- <img width="400px" src="https://cdn.fs.teachablecdn.com/6Rl23AySyxnjtTrQ2VVw" />
+ <img width="100px" src="https://cdn.fs.teachablecdn.com/6Rl23AySyxnjtTrQ2VVw" align="center" alt="The Net Ninja logo" />
  <h2 align="center">The Net Ninja & Others</h2>
 </p>
 ---
@@ -864,7 +864,7 @@ Feel free to Contact me on [Twitter](https://mobile.twitter.com/jayedrashid), se
 
 <img height="20" src="https://www.bollywoodmdb.com/images/uparrow.gif"> [back to top](#quick-links)<br>
 
-
+<!-- **[⬆ back to top](#quick-links)** -->
 
 
 
