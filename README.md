@@ -2,7 +2,7 @@
 `A JavaScript Library For Building User Interfaces`
 
 <p align="center">
- <img width="400px" src="https://miro.medium.com/max/1400/0*EitUXT-pqbaQSCTt.gif" align="center" alt="React JS logo" />
+ <img width="400px" src="https://miro.medium.com/max/1400/0*EitUXT-pqbaQSCTt.gif" align="center" alt="GitHub Readme Stats" />
  <h2 align="center">My React Journey Begins</h2>
 </p>
 
@@ -12,6 +12,7 @@ Starting React JS from sources:
  <img width="100px" src="https://cdn.fs.teachablecdn.com/6Rl23AySyxnjtTrQ2VVw" align="center" alt="The Net Ninja logo" />
  <h2 align="center">The Net Ninja & Others</h2>
 </p>
+
 ---
 
 ## Quick Links
@@ -796,10 +797,40 @@ export default Home;
 
 ---
 
-## Functions As Props
+## Pass Functions As Props
 Using Functions as Props in React
 
-In BlogList.js file.
+First define handleDelete function inside Home component. Then use setBlogs function inside Home component to update the state.
+
+In Home.js file.
+```sh
+import { useState } from "react";
+import BlogList from "./BlogList";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState([
+    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
+    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
+    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
+  ])
+
+  const handleDelete = (id) => {
+    const newBlogs = blogs.filter(blog => blog.id !== id);
+    setBlogs(newBlogs);
+  }
+
+  return (
+    <div className="home">
+      <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />    // handleDelete={handleDelete} is a prop function
+    </div>
+  );
+}
+ 
+export default Home;
+```
+
+
+In BlogList.js file. Passing handleDelete function as prop. 
 ```sh
 const BlogList = ({ blogs, title, handleDelete }) => {
   return (
@@ -822,12 +853,62 @@ export default BlogList;
 ---
 
 ## Using State `useEffect` Hook
-Using useEffect Hook (the basics)
+The Effect Hook lets you perform side effects in function components. This useEffect Hook run code on every render. useEffect function fires on every render. When we change the data it rerender this to the DOM. Whenever the state changes useEffect function rerenders.
+
+Whether or not you’re used to calling these operations “side effects” (or just “effects”), you’ve likely performed them in your components before.
+
+Examples of `Side Effects` in React. Eg:
+- Data fetching
+- Authentication service communication
+- Setting up a subscription
+- manually changing the DOM
+
+
+In Home.js file.
+```sh
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState([
+    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
+    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
+    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
+  ])
+
+  const handleDelete = (id) => {
+    const newBlogs = blogs.filter(blog => blog.id !== id);
+    setBlogs(newBlogs);
+  }
+
+  useEffect(() => {
+    console.log('use effect ran');
+    console.log(blogs);
+  })
+
+  return (
+    <div className="home">
+      <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+    </div>
+  );
+}
+ 
+export default Home;
+```
+
 
 ---
 
 ## useEffect Dependencies
-Using useEffect 
+Using useEffect Dependencies to stop rerenders by Dependency array which is passed inside useEffect function as a second argument
+
+```sh
+useEffect(() => {
+
+}, []);
+```
+
+
 
 ---
 
@@ -864,7 +945,7 @@ Feel free to Contact me on [Twitter](https://mobile.twitter.com/jayedrashid), se
 
 <img height="20" src="https://www.bollywoodmdb.com/images/uparrow.gif"> [back to top](#quick-links)<br>
 
-<!-- **[⬆ back to top](#quick-links)** -->
+
 
 
 
