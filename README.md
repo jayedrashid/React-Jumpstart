@@ -1,4 +1,5 @@
 # `ReactJS: Jump-start`
+`A JavaScript Library For Building User Interfaces`
 
 <p align="center">
  <img width="400px" src="https://miro.medium.com/max/1400/0*EitUXT-pqbaQSCTt.gif" align="center" alt="GitHub Readme Stats" />
@@ -6,8 +7,11 @@
 </p>
 
 
-Starting React JS
-
+Starting React JS from sources: 
+<p align="center">
+ <img width="400px" src="data:image/jpeg;base64,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" align="center" alt="GitHub Readme Stats" />
+ <h2 align="center">The Net Ninja & Others</h2>
+</p>
 ---
 
 ## Quick Links
@@ -532,6 +536,8 @@ Using State (useState hook)
 
 React components has a built-in state object. The state object is where you store property values that belongs to the component. When the state object changes, the component re-renders.
 
+State is handled & updated inside of a component and change the value.
+
 React Hooks
 This is one of the holy grail of react. React hooks just makes your work so much easier, react hooks are designed to simplify difficult tasks like re-rendering the UI, managing state, picking an element from the DOM and lots more. There is a hook for most things you want and if there isn’t any react hook that meets your need then you can also build your own custom hook.
 
@@ -597,11 +603,11 @@ Using `set` function right way by correcting above snippet:
 
 ```sh
   const add = () => {
-    setCount(count + 1);
-    setCount(count + 1);  // now batch works
+    setCount(prev => prev + 1);
+    setCount(prev => prev + 1);  // now batch works
   }
   const subtract = () => {
-    setCount(count - 1);
+    setCount(prev => prev - 1);
   }
 ```
 
@@ -641,18 +647,18 @@ export default Home;
 State = any data that changes application and so does ui.
 React has 10 built-in Hooks:
 
-Basic Hooks
-- useState = handle reactive data
-- useEffect = change over component life-cycle 
-- useContext
-Additional Hooks
-- useReducer
-- useCallback
-- useMemo
-- useRef
-- useImperativeHandle
-- useLayoutEffect
-- useDebugValue
+- Basic Hooks
+    * useState = handle reactive data
+    * useEffect = change over component life-cycle 
+    * useContext
+- Additional Hooks
+    * useReducer
+    * useCallback
+    * useMemo
+    * useRef
+    * useImperativeHandle
+    * useLayoutEffect
+    * useDebugValue
 
 
 ---
@@ -712,18 +718,106 @@ In index.css file add additional css snippet
 ## Props
 Props are arguments passed into React components. Props are passed to components via HTML attributes. props stands for properties.
 
+Props are like arguments to a function and handled outside of a component and display information. Props allows us to pass data from one `parent` component to another `child` component.
 
+Import BlogList component from In Home.js file. Here `Home` is parent component and `<BlogList />` is child component.
+```sh
+import { useState } from "react";
+import BlogList from "./BlogList";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState([
+    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
+    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
+    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
+  ])
+
+  return (
+    <div className="home">
+      <BlogList blogs={blogs} title="All Blogs" />    // blogs={blogs} is a prop
+    </div>
+  );
+}
+
+export default Home;
+```
+
+
+Create an external component named BlogList in BlogList.js file.
+```sh
+const BlogList = ({ blogs, title}) => {   // destruture props inside parenthesis
+  // const blogs = props.blogs;
+  // const title = props.title;
+  // console.log(blogs);
+
+  return (
+    <div className="blog-list">
+      <h2>{ title }</h2>
+      {blogs.map(blog => (
+        <div className="blog-preview" key={blog.id} >
+          <h2>{ blog.title }</h2>
+          <p>Written by { blog.author }</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+ 
+export default BlogList;
+```
 
 
 ---
 
 ## Reusing Components
-Reusing Components in React
+
+Apply filter method in BlogList component in Home.js file. BlogList component can be reused with different data. Here we want only author: 'mario'. So,
+```sh
+import { useState } from "react";
+import BlogList from "./BlogList";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState([
+    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
+    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
+    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
+  ])
+
+  return (
+    <div className="home">
+      <BlogList blogs={blogs} title="All Blogs" />
+      <BlogList blogs={blogs.filter(blog => blog.author === 'mario')} title="Mario's Blogs" />
+    </div>
+  );
+}
+ 
+export default Home;
+```
 
 ---
 
 ## Functions As Props
 Using Functions as Props in React
+
+In BlogList.js file.
+```sh
+const BlogList = ({ blogs, title, handleDelete }) => {
+  return (
+    <div className="blog-list">
+      <h2>{ title }</h2>
+      {blogs.map(blog => (
+        <div className="blog-preview" key={blog.id} >
+          <h2>{ blog.title }</h2>
+          <p>Written by { blog.author }</p>
+          <button onClick={() => handleDelete(blog.id)}>delete blog</button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default BlogList;
+```
 
 ---
 
