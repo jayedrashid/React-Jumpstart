@@ -1014,6 +1014,8 @@ npx json-server --watch dta/db.json --port 8000
  
 ```
 
+Routes management with Endpoints:
+
 | Routes | Endpoints | Details |
 | --- | --- | --- |
 /blogs | GET | Fetch all blogs
