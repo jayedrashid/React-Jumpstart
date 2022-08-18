@@ -864,7 +864,7 @@ Examples of `Side Effects` in React. Eg:
 - manually changing the DOM
 
 
-In Home.js file.
+In Home.js file:
 ```sh
 import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
@@ -902,23 +902,167 @@ export default Home;
 ## useEffect Dependencies
 Using useEffect Dependencies to stop rerenders by Dependency array which is passed inside useEffect function as a second argument
 
+You don't alway want to run a function after every single renders, maybe a only a certain renders. To do that we can use something called dependency array. This is basically an array that we can pass into an useEffect hook as an second argument. This hook only runs the function after the first initial render. Thereafter if the state changes it won't run the function again. It only runs it once.
+
 ```sh
 useEffect(() => {
 
-}, []);
+}, []);   //  dependency array
 ```
 
+
+In Home.js file:
+```sh
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState([
+    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
+    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
+    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
+  ])
+
+  const handleDelete = (id) => {
+    const newBlogs = blogs.filter(blog => blog.id !== id);
+    setBlogs(newBlogs);
+  }
+
+    useEffect(() => {
+    console.log('use effect ran');
+    console.log(blogs);
+  }, [])
+
+  return (
+    <div className="home">
+      <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+    </div>
+  );
+}
+ 
+export default Home;
+```
+
+Another option is to run dependencies to this array. Any state values that should trigger the useEffect function to run when they change. So, lets create another piece of state:
+
+```sh
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState([
+    { title: 'My new website', body: 'lorem ipsum...', author: 'mario', id: 1 },
+    { title: 'Welcome party!', body: 'lorem ipsum...', author: 'yoshi', id: 2 },
+    { title: 'Web dev top tips', body: 'lorem ipsum...', author: 'mario', id: 3 }
+  ])
+
+  const [name, setName] = useState('mario');
+
+  const handleDelete = (id) => {
+    const newBlogs = blogs.filter(blog => blog.id !== id);
+    setBlogs(newBlogs);
+  }
+
+  useEffect(() => {
+    console.log('use effect ran');
+    console.log(blogs);
+  }, [name])    //  dependency array
+
+  return (
+    <div className="home">
+      <BlogList blogs={blogs} title="All Blogs" handleDelete={handleDelete} />
+      <button onClick={() => setName('luigi')}>change name</button>
+    </div>
+  );
+}
+ 
+export default Home;
+```
 
 
 ---
 
 ## Using JSON Server
-Using JSON Server 
+To use this useEffect hook we're going to be using it fetch some data. useEffect is a good place to fetch the data component because we know that it runs the function right here when the component first renders initially. Then we can use that data in our application instead of the data hard coded that we have in our state. Rather using a database using an api endpoint. 
+Here, we're going to use the JSON Server which is gonna allow us to build a fake rest api just using a JSON file to test this out.
+
+In data/db.json file:
+```sh
+{
+  "blogs": [
+    {
+      "title": "My First Blog",
+      "body": "Why do we use it?\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n\n\nWhere does it come from?\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.\n\nWhere can I get some?\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "author": "mario",
+      "id": 1
+    },
+    {
+      "title": "Opening Party!",
+      "body": "Why do we use it?\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n\n\nWhere does it come from?\nContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.\n\nThe standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.\n\nWhere can I get some?\nThere are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "author": "yoshi",
+      "id": 2
+    }
+  ]
+}
+```
+
+Now we'll use the `JSON Server`package to watch this file and wrap it with some endpoints.
+
+In terminal:
+```sh
+npx json-server --watch dta/db.json --port 8000
+ 
+```
+
+| Routes | Endpoints | Details |
+| --- | --- | --- |
+/blogs | GET | Fetch all blogs
+/blogs/{id} | GET | Fetch a single blog
+/blogs | POST | Add a new blog
+/blogs/{id} | DELETE | Delete a blog
+
 
 ---
 
 ## Fetching Data with `useEffect`
 Fetching Data with useEffect 
+
+We're going to use some fetch request inside our component using this endpoints:
+`http://localhost:8000/blogs`
+
+In Home.js file::
+```sh
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState(null)
+
+  useEffect(() => {
+    fetch('http://localhost:8000/blogs')  // make fetch request
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        setBlogs(data);
+      })
+  }, [])  // dependency array helps not to loop render data and show it only when data changes 
+
+  return (
+    <div className="home">
+      {blogs && <BlogList blogs={blogs} />}
+    </div>
+  );
+}
+ 
+export default Home;
+```
+
+
+---
+
+## Conditional Loading Message
+Conditional Loading Message 
 
 
 
