@@ -1,4 +1,5 @@
 # `ReactJS: Jump-start`
+
 `A JavaScript Library For Building User Interfaces`
 
 <p align="center">
@@ -6,8 +7,8 @@
  <h2 align="center">My React Journey Begins</h2>
 </p>
 
+Starting React JS from sources:
 
-Starting React JS from sources: 
 <p align="center">
  <img width="100px" src="https://cdn.fs.teachablecdn.com/6Rl23AySyxnjtTrQ2VVw" align="center" alt="The Net Ninja logo" />
  <h2 align="center">The Net Ninja & Others</h2>
@@ -18,24 +19,32 @@ Starting React JS from sources:
 ## Quick Links
 
 <!-- - [Summary](#summary) -->
+
 - [Environment Setup](#environment-setup)
 - [React Folder Structure](#react-folder-structure)
-- [App & Index file Basics](#app-component-basics)
+- [JSX](#jsx)
+- [App Component](#app-component)
 - [Dynamic Values](#dynamic-values)
 - [Multiple Components](#multiple-components)
 - [Adding Styles](#adding-styles)
 - [Click Events](#click-events)
-- [Using State](#using-state)
+- [State (useState) Hook](#state-usestate-hook)
+- [10 Hooks](#10-hooks)
 - [Outputting Lists](#outputting-lists)
 - [Props](#props)
 - [Reusing Components](#reusing-components)
 - [Functions As Props](#functions-as-props)
-- [Using State useEffect Hook](#using-state-useEffect-hook)
-- [useEffect Dependencies](#useEffect-dependencies)
-- [Using JSON Server](#using-json-server)
-- [Fetching Data with useEffect](#fetching-data-with-useEffect)
-- [JSX](#jsx)
-
+- [State useEffect Hook](#state-useeffect-hook)
+- [useEffect Dependencies](#useeffect-dependencies)
+- [JSON Server](#json-server)
+- [Fetch Data with useEffect](#fetch-data-with-useeffect)
+- [Conditional Loading Message](#conditional-loading-message)
+- [Handling Fetch Errors](#handling-fetch-errors)
+- [Custom Hook](#custom-hook)
+- [React Router](#react-router)
+- [Exact Match Routes](#exact-match-routes)
+- [Router Links](#router-links)
+- [useEffect Cleanup](#useeffect-cleanup)
 
 
 ---
@@ -45,34 +54,40 @@ Starting React JS from sources:
 - Install VS Code
 - Install `Simple React Snippets` (ext.)
 - Setup VS Code `Emmet`
-- Install Node 
+- Install Node
+
 ```sh
 brew install node
 ```
+
 - Install React
+
 ```sh
 npx create-react-app .
 ```
-- Install NPM (localhost:3000 start) (To Close Server = Ctrl + C) 
+
+- Install NPM (localhost:3000 start) (To Close Server = Ctrl + C)
+
 ```sh
-yarn start		
-// or 
+yarn start
+// or
 npm start
 ```
+
 - Install SASS (sass will start working after restarting vscode)
+
 ```sh
-yarn add sass		
-// or 
+yarn add sass
+// or
 npm i sass
 ```
 
 - Delete Unnecessary Files from `root` directory
 
-
 ---
 
-
 ## React Folder Structure
+
 [Structuring React Projects](https://blog.bitsrc.io/structuring-a-react-project-a-definitive-guide-ac9a754df5eb)
 
 [React Folder Structure](https://gist.github.com/vasanthk/2bde67682511659c4d6a)
@@ -80,6 +95,7 @@ npm i sass
 [How To Organize React Projects](https://github.com/WebDevSimplified/react-folder-structure)
 
 `Beginner` Folder Structure
+
 ```
 root
 ├── node_modules
@@ -111,8 +127,8 @@ root
 └── readme.md
 ```
 
-
 `Intermidiate` Folder Structure
+
 ```
 root
 ├── node_modules
@@ -196,16 +212,22 @@ root
 ---
 
 #### `node_modules` Folder
+
 It holds all of our project dependencies
+
 - Application dependencies
 - Development dependencies
 
 #### `public` Folder
+
 All of our files public to the browser including index.html where all of our react code injected inside the id of `root`.
+
 ```sh
 <div id="root"></div>
 ```
+
 #### `src` Folder
+
 All of our working files will be in this folder. Here, the index.js file will kick-start our application. This file will be responsible taking all of our react components and mounting them to the DOM. It holds the App component and render it to the DOM.
 
 ---
@@ -214,8 +236,7 @@ All of our working files will be in this folder. Here, the index.js file will ki
 
 JSX is a react extension to JavaScript that allows us to write HTML in JavaScript files, do not however think that JSX is just a smile templating language. The use of JSX allows us to keep our component logic and UI in a single file without bloating it. JSX allows us to interpret JavaScript expression and statements by wrapping it in curly braces, it actually compiles first and is faster than the actual JavaScript we write outside JSX.
 
-In App.js file there is a function (can be an arrow function) called App which returns some html looking codes named JSX. Here babel compiles all these JSX template codes to html when we save the file and renders html to the DOM. In JSX html class turns into `className`. 
-
+In App.js file there is a function (can be an arrow function) called App which returns some html looking codes named JSX. Here babel compiles all these JSX template codes to html when we save the file and renders html to the DOM. In JSX html class turns into `className`.
 
 ```sh
 function App() {
@@ -245,6 +266,7 @@ Some things should be simple and straightforward so I prefer using functional co
 Whenever we create a component function, we must export it.
 
 In App.js file:
+
 ```sh
 import './App.css';
 
@@ -261,11 +283,10 @@ function App() {
 export default App;
 ```
 
-
-
 After exporting from `App.js` we must import App component from `index.js` to render it react DOM to show on browser.
 
 In index.js file:
+
 ```sh
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -284,7 +305,7 @@ ReactDOM.render(
 
 ## Dynamic Values
 
-In JSX we can output `Dynamic Values` or `Variables` inside it. 
+In JSX we can output `Dynamic Values` or `Variables` inside it.
 
 ```sh
 import './App.css';
@@ -341,8 +362,6 @@ function App() {
 export default App;
 ```
 
-
-
 ---
 
 ## Multiple Components
@@ -361,7 +380,7 @@ const Navbar = () => {
     </nav>
   );
 }
- 
+
 export default Navbar;
 ```
 
@@ -385,8 +404,6 @@ function App() {
 export default App;
 ```
 
-
-
 Create `Home` Component in Home.js file
 
 ```sh
@@ -400,7 +417,6 @@ const Home = () => {
 
 export default Home;
 ```
-
 
 Import `Home` Component in App.js file
 
@@ -426,6 +442,7 @@ export default App;
 ---
 
 ## Adding Styles
+
 [Style Your React App – 5 Ways to Write CSS](https://www.freecodecamp.org/news/how-to-style-react-apps-with-css/)
 
 1. Inline Styles
@@ -435,9 +452,11 @@ export default App;
 5. CSS-in-JS
 
 ### `Global Stylesheet`
-Delete App.css and prepare index.css as our Global Stylesheet. 
+
+Delete App.css and prepare index.css as our Global Stylesheet.
 
 In index.css file
+
 ```sh
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
@@ -476,11 +495,12 @@ In index.css file
 }
 ```
 
-
 ### `Inline Style`
-In `Navbar` component we can do Inline Style. 
+
+In `Navbar` component we can do Inline Style.
 
 In Navbar.js file
+
 ```sh
 const Navbar = () => {
   return (
@@ -488,25 +508,27 @@ const Navbar = () => {
       <h1>The Dojo Blog</h1>
       <div className="links">
         <a href="/">Home</a>
-        <a href="/create" style={{ 
-          color: 'white', 
+        <a href="/create" style={{
+          color: 'white',
           backgroundColor: '#f1356d',
-          borderRadius: '8px' 
+          borderRadius: '8px'
         }}>New Blog</a>
       </div>
     </nav>
   );
 }
- 
+
 export default Navbar;
 ```
 
 ---
 
 ## Click Events
+
 There are many events like.. hover, click, form submission events etc. So, in Home component we will create a button and fire it by invoking a function (handleClick). Then we will create another button and function by passing arguments.
 
 In Home.js file
+
 ```sh
 const Home = () => {
 
@@ -532,7 +554,8 @@ export default Home;
 
 ---
 
-## State `useState`
+## State `useState` Hook
+
 Using State (useState hook)
 
 React components has a built-in state object. The state object is where you store property values that belongs to the component. When the state object changes, the component re-renders.
@@ -546,11 +569,11 @@ We used a very simple react hook here that allows us to update the state of a co
 
 This ensures that there is less broiler plate code, we would have written more code if this was done without hooks or from a class based component. Hooks also eliminate the need for listening to multiple life cycle events on components, the hook manages all that behind the scene for you.
 
-Hook in react is a special type of function that does a special type if job. You can tell a hook by it's name because it starts with 'use'. So useState hook gives us a way to make a reactive value and also provides us way to change the value. 
+Hook in react is a special type of function that does a special type if job. You can tell a hook by it's name because it starts with 'use'. So useState hook gives us a way to make a reactive value and also provides us way to change the value.
 
 We can use the hook as many times as we want in a component for different values. This value can be an array, object, boolean, string, number.
 
-So, when you need a reactive value that might change in some point we will use `useState` hook todo that. We pass in an initial value 'mario' and we can output that value in a template { } and then we call the `set` function which is second value in the array [ name, setName ] to update it so that triggers a re-render and the new value is going to output to the browser. 
+So, when you need a reactive value that might change in some point we will use `useState` hook todo that. We pass in an initial value 'mario' and we can output that value in a template { } and then we call the `set` function which is second value in the array [ name, setName ] to update it so that triggers a re-render and the new value is going to output to the browser.
 
 You can't put hooks inside if conditions, functions, loops etc. So, the can't be nested. Hooks will always stay at the top level in your App component.
 
@@ -595,10 +618,9 @@ const Counter = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
-
 
 Using `set` function right way by correcting above snippet:
 
@@ -612,9 +634,8 @@ Using `set` function right way by correcting above snippet:
   }
 ```
 
-
-
 In Home.js file
+
 ```sh
 import { useState } from "react";
 
@@ -637,37 +658,38 @@ const Home = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
-
 
 ---
 
 ## 10 Hooks
+
 State = any data that changes application and so does ui.
 React has 10 built-in Hooks:
 
 - Basic Hooks
-    * useState = handle reactive data
-    * useEffect = change over component life-cycle 
-    * useContext
+  - useState = handle reactive data
+  - useEffect = change over component life-cycle
+  - useContext
 - Additional Hooks
-    * useReducer
-    * useCallback
-    * useMemo
-    * useRef
-    * useImperativeHandle
-    * useLayoutEffect
-    * useDebugValue
-
+  - useReducer
+  - useCallback
+  - useMemo
+  - useRef
+  - useImperativeHandle
+  - useLayoutEffect
+  - useDebugValue
 
 ---
 
 ## Outputting Lists
-Outputting lists of data in React. We have list of data which we have store in useState and then we map through that data so that we take each item into that as we map through it and we output a template for each one and for each one it has a key property (unique id) 
+
+Outputting lists of data in React. We have list of data which we have store in useState and then we map through that data so that we take each item into that as we map through it and we output a template for each one and for each one it has a key property (unique id)
 
 In Home.js file
+
 ```sh
 import { useState } from "react";
 
@@ -689,12 +711,12 @@ const Home = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
 
-
 In index.css file add additional css snippet
+
 ```sh
 /* blog previews / list */
 .blog-preview {
@@ -712,16 +734,16 @@ In index.css file add additional css snippet
 }
 ```
 
-
-
 ---
 
 ## Props
+
 Props are arguments passed into React components. Props are passed to components via HTML attributes. props stands for properties.
 
 Props are like arguments to a function and handled outside of a component and display information. Props allows us to pass data from one `parent` component to another `child` component.
 
 Import BlogList component from In Home.js file. Here `Home` is parent component and `<BlogList />` is child component.
+
 ```sh
 import { useState } from "react";
 import BlogList from "./BlogList";
@@ -743,8 +765,8 @@ const Home = () => {
 export default Home;
 ```
 
-
 Create an external component named BlogList in BlogList.js file.
+
 ```sh
 const BlogList = ({ blogs, title}) => {   // destruture props inside parenthesis
   // const blogs = props.blogs;
@@ -763,16 +785,16 @@ const BlogList = ({ blogs, title}) => {   // destruture props inside parenthesis
     </div>
   );
 }
- 
+
 export default BlogList;
 ```
-
 
 ---
 
 ## Reusing Components
 
 Apply filter method in BlogList component in Home.js file. BlogList component can be reused with different data. Here we want only author: 'mario'. So,
+
 ```sh
 import { useState } from "react";
 import BlogList from "./BlogList";
@@ -791,18 +813,20 @@ const Home = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
 
 ---
 
-## Pass Functions As Props
+## Functions As Props
+
 Using Functions as Props in React
 
 First define handleDelete function inside Home component. Then use setBlogs function inside Home component to update the state.
 
 In Home.js file.
+
 ```sh
 import { useState } from "react";
 import BlogList from "./BlogList";
@@ -825,12 +849,12 @@ const Home = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
 
+In BlogList.js file. Passing handleDelete function as prop.
 
-In BlogList.js file. Passing handleDelete function as prop. 
 ```sh
 const BlogList = ({ blogs, title, handleDelete }) => {
   return (
@@ -852,19 +876,21 @@ export default BlogList;
 
 ---
 
-## Using State `useEffect` Hook
+## State `useEffect` Hook
+
 The Effect Hook lets you perform side effects in function components. This useEffect Hook run code on every render. useEffect function fires on every render. When we change the data it rerender this to the DOM. Whenever the state changes useEffect function rerenders.
 
 Whether or not you’re used to calling these operations “side effects” (or just “effects”), you’ve likely performed them in your components before.
 
 Examples of `Side Effects` in React. Eg:
+
 - Data fetching
 - Authentication service communication
 - Setting up a subscription
 - manually changing the DOM
 
-
 In Home.js file:
+
 ```sh
 import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
@@ -892,14 +918,14 @@ const Home = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
-
 
 ---
 
 ## useEffect Dependencies
+
 Using useEffect Dependencies to stop rerenders by Dependency array which is passed inside useEffect function as a second argument
 
 You don't alway want to run a function after every single renders, maybe a only a certain renders. To do that we can use something called dependency array. This is basically an array that we can pass into an useEffect hook as an second argument. This hook only runs the function after the first initial render. Thereafter if the state changes it won't run the function again. It only runs it once.
@@ -910,8 +936,8 @@ useEffect(() => {
 }, []);   //  dependency array
 ```
 
-
 In Home.js file:
+
 ```sh
 import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
@@ -939,11 +965,13 @@ const Home = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
 
 Another option is to run dependencies to this array. Any state values that should trigger the useEffect function to run when they change. So, lets create another piece of state:
+
+In Home.js file:
 
 ```sh
 import { useEffect, useState } from "react";
@@ -975,18 +1003,19 @@ const Home = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
 
-
 ---
 
-## Using JSON Server
-To use this useEffect hook we're going to be using it fetch some data. useEffect is a good place to fetch the data component because we know that it runs the function right here when the component first renders initially. Then we can use that data in our application instead of the data hard coded that we have in our state. Rather using a database using an api endpoint. 
+## JSON Server
+
+To use this useEffect hook we're going to be using it fetch some data. useEffect is a good place to fetch the data component because we know that it runs the function right here when the component first renders initially. Then we can use that data in our application instead of the data hard coded that we have in our state. Rather using a database using an api endpoint.
 Here, we're going to use the JSON Server which is gonna allow us to build a fake rest api just using a JSON file to test this out.
 
 In data/db.json file:
+
 ```sh
 {
   "blogs": [
@@ -1009,30 +1038,32 @@ In data/db.json file:
 Now we'll use the `JSON Server`package to watch this file and wrap it with some endpoints.
 
 In terminal:
+
 ```sh
 npx json-server --watch dta/db.json --port 8000
- 
+
 ```
 
 Routes management with Endpoints:
 
-| Routes | Endpoints | Details |
-| --- | --- | --- |
-/blogs | GET | Fetch all blogs
-/blogs/{id} | GET | Fetch a single blog
-/blogs | POST | Add a new blog
-/blogs/{id} | DELETE | Delete a blog
-
+| Routes      | Endpoints | Details             |
+| ----------- | --------- | ------------------- |
+| /blogs      | GET       | Fetch all blogs     |
+| /blogs/{id} | GET       | Fetch a single blog |
+| /blogs      | POST      | Add a new blog      |
+| /blogs/{id} | DELETE    | Delete a blog       |
 
 ---
 
-## Fetching Data with `useEffect`
-Fetching Data with useEffect 
+## Fetch Data with `useEffect`
+
+Fetching Data with useEffect
 
 We're going to use some fetch request inside our component using this endpoints:
 `http://localhost:8000/blogs`
 
-In Home.js file::
+In Home.js file:
+
 ```sh
 import { useEffect, useState } from "react";
 import BlogList from "./BlogList";
@@ -1048,7 +1079,7 @@ const Home = () => {
       .then(data => {
         setBlogs(data);
       })
-  }, [])  // dependency array helps not to loop render data and show it only when data changes 
+  }, [])  // dependency array helps not to loop render data and show it only when data changes
 
   return (
     <div className="home">
@@ -1056,24 +1087,94 @@ const Home = () => {
     </div>
   );
 }
- 
+
 export default Home;
 ```
-
 
 ---
 
 ## Conditional Loading Message
-Conditional Loading Message 
 
+Currently in our application we render the blog list once we have blog data and until then we don't render it. But it would be nice to create a loading massage whilst the data is being fetched so that user knows something is loading if it takes time to do. Here our fetch is very quick because we're just making a fetch to our own computer but most times the fetch will be to another server over the internet and slower in in which case the user will see that loading message while we fetch the data. So, to do this we're going to create an additional piece of state inside the home component and that is gonna be called isPending here.
+
+In Home.js file:
+
+```sh
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
+
+const Home = () => {
+  const [blogs, setBlogs] = useState(null);     // 1st state
+  const [isPending, setIsPending] = useState(true);     // 2nd state
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetch('http://localhost:8000/blogs')
+      .then(res => {
+        return res.json();
+      })
+      .then(data => {
+        setIsPending(false);
+        setBlogs(data);
+      })
+    }, 1000);
+  }, [])
+
+  return (
+    <div className="home">
+      { isPending && <div>Loading...</div> }
+      { blogs && <BlogList blogs={blogs} /> }
+    </div>
+  );
+}
+
+export default Home;
+```
+
+---
+
+## Handling Fetch Errors
+
+Handling Fetch Errors
 
 
 
 ---
 
+## Custom Hook
+
+Making a Custom Hook
+
+---
+
+## React Router
+
+React Router
+
+
+---
+
+## Exact Match Routes
+
+Exact Match Routes
+
+
+---
+
+## Router Links
+
+Router Links
+
+
+---
+
+## useEffect Cleanup
+
+useEffect Cleanup
+
+---
 
 ## Contributors
-
 
 <table>
   <tr>
@@ -1081,18 +1182,13 @@ Conditional Loading Message
   </tr>
 </table>
 
-
 ---
 
 ## Let's Connect
 
 Feel free to Contact me on [Twitter](https://mobile.twitter.com/jayedrashid), send an email to jayed@jayedrashid.com
 
-
 <img height="20" src="https://www.bollywoodmdb.com/images/uparrow.gif"> [back to top](#quick-links)<br>
-
-
-
 
 
 
