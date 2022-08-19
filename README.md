@@ -34,7 +34,7 @@ Starting React JS from sources:
 - [Props](#props)
 - [Reusing Components](#reusing-components)
 - [Functions As Props](#functions-as-props)
-- [State useEffect Hook](#state-useeffect-hook)
+- [State (useEffect) Hook](#state-useeffect-hook)
 - [useEffect Dependencies](#useeffect-dependencies)
 - [JSON Server](#json-server)
 - [Fetch Data with useEffect](#fetch-data-with-useeffect)
