@@ -1041,7 +1041,6 @@ In terminal:
 
 ```sh
 npx json-server --watch dta/db.json --port 8000
-
 ```
 
 Routes management with Endpoints:
@@ -1135,21 +1134,161 @@ export default Home;
 
 ## Handling Fetch Errors
 
-Handling Fetch Errors
+We want to handle any kind of error inside the Home component when we trying to make the fetch. This error can be set back from server or some kind of connection error. In that case we wouldn't get the data back and let user know some kind of error. So, add a catch block after fetching data:
 
+```sh
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
 
+const Home = () => {
+  const [blogs, setBlogs] = useState(null);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetch('http://localhost:8000/blogs')
+      .then(res => {
+        if (!res.ok) { // error coming back from server
+          throw Error('could not fetch the data for that resource');
+        } 
+        return res.json();
+      })
+      .then(data => {
+        setIsPending(false);
+        setBlogs(data);
+        setError(null);
+      })
+      .catch(err => {
+        // auto catches network / connection error
+        setIsPending(false);
+        setError(err.message);
+      })
+    }, 1000);
+  }, [])
+
+  return (
+    <div className="home">
+      { error && <div>{ error }</div> }
+      { isPending && <div>Loading...</div> }
+      { blogs && <BlogList blogs={blogs} /> }
+    </div>
+  );
+}
+ 
+export default Home;
+```
 
 ---
 
 ## Custom Hook
 
-Making a Custom Hook
+Previously we've put together all those logic inside the useEffect hook to update 
+all of these state properties to output the data or loading massage or an error if there is one.
+But what if we want to do this same kind of thing in another component in the future where we fetch some data or create state for the data itself the error and is pending property etc. We then have to rewrite all of these code in that component again. Which is not easy to manage especially if you put these code in a few different places in your application.
+So, it would be good if we could make use of all of this code again in different component so make it bit more reusable so we don't have to continually write it out again and again.
+So when we do something like this by externalizing the logic into its own file we're creating something called a `Custom Hook` in react. It's a bit like useState & useEffect have their own specific functionality as hooks. We'd be creating a Custom Hook with a specific ability to fetch data. 
+
+In order to make this custom hook, we first make a new file named useFetch.js in the source folder:
+
+```sh
+import { useState, useEffect } from 'react';
+
+const useFetch = (url) => {
+  const [data, setData] = useState(null);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      fetch(url)
+      .then(res => {
+        if (!res.ok) { // error coming back from server
+          throw Error('could not fetch the data for that resource');
+        } 
+        return res.json();
+      })
+      .then(data => {
+        setIsPending(false);
+        setData(data);
+        setError(null);
+      })
+      .catch(err => {
+        // auto catches network / connection error
+        setIsPending(false);
+        setError(err.message);
+      })
+    }, 1000);
+  }, [url])
+
+  return { data, isPending, error };
+}
+ 
+export default useFetch;
+```
+
+In Home.js file import the functions:
+
+```sh
+import { useEffect, useState } from "react";
+import BlogList from "./BlogList";
+import useFetch from "./useFetch";
+
+const Home = () => {
+  const { error, isPending, data: blogs } = useFetch('http://localhost:8000/blogs')
+
+  return (
+    <div className="home">
+      { error && <div>{ error }</div> }
+      { isPending && <div>Loading...</div> }
+      { blogs && <BlogList blogs={blogs} /> }
+    </div>
+  );
+}
+ 
+export default Home;
+```
 
 ---
 
 ## React Router
 
-React Router
+By far our application has one single page, we don't navigate around to other pages we just have this single home page and most websites you create are gonna have probably multi page. So we need a way to introduce multiple different pages or routes in our react application and the way we do this in react is with the react router.
+
+So we assign a top level component for each route or page and that component is dynamically injected into the browser when we visit that route. Now, this whole process means that we're making less request to the server and the whole website therefore feels faster and slicker. We need to install `React Router` package for this because it's not the part of core react library.
+
+In terminal:
+
+```sh
+npm install react-router-dom@6
+```
+
+In App.js file import the router:
+
+```sh
+import Navbar from './Navbar';
+import Home from './Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />        // same on every page
+        <div className="content">
+          <Switch>        // content inside switch change on every page
+            <Route path="/">        // root path
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+```
 
 
 ---
@@ -1158,6 +1297,9 @@ React Router
 
 Exact Match Routes
 
+```sh
+
+```
 
 ---
 
@@ -1189,8 +1331,5 @@ useEffect Cleanup
 Feel free to Contact me on [Twitter](https://mobile.twitter.com/jayedrashid), send an email to jayed@jayedrashid.com
 
 <img height="20" src="https://www.bollywoodmdb.com/images/uparrow.gif"> [back to top](#quick-links)<br>
-
-
-
 
 
