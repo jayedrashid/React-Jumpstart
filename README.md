@@ -1,4 +1,4 @@
-# `ReactJS: Jump-start`
+# `ReactJS: Notes`
 
 `A JavaScript Library For Building User Interfaces`
 
