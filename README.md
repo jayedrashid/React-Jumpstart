@@ -4,7 +4,7 @@
 
 <p align="center">
  <img width="400px" src="https://miro.medium.com/max/1400/0*EitUXT-pqbaQSCTt.gif" align="center" alt="GitHub Readme Stats" />
- <h2 align="center">My React Journey Begins</h2>
+ <h2 align="center">React Beginners Guide</h2>
 </p>
 
 Starting React JS from sources:
