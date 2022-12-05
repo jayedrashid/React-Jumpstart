@@ -739,11 +739,11 @@ In index.css file add additional css snippet
 
 ## Props
 
-Props are arguments passed into React components. Props are passed to components via HTML attributes. props stands for properties.
+In ReactJS, the props are a type of object where the value of attributes of a tag is stored. The word “props” implies “properties”, and its working functionality is quite similar to HTML attributes. Basically, these props components are read-only components.
 
-Props are like arguments to a function and handled outside of a component and display information. Props allows us to pass data from one `parent` component to another `child` component.
+Props are like arguments to a function and handled outside of a component and display information. Props are arguments passed into React components. Props allows us to pass data from one `parent` component to another `child` component. Props are passed to components via HTML attributes.
 
-Import BlogList component from In Home.js file. Here `Home` is parent component and `<BlogList />` is child component.
+Import BlogList component from In Home.js file. Here `Home` is a parent component and `<BlogList />` is a child component.
 
 ```sh
 import { useState } from "react";
@@ -822,7 +822,7 @@ export default Home;
 
 ## Functions As Props
 
-Using Functions as Props in React
+Using Functions as Props in React:
 
 First define handleDelete function inside Home component. Then use setBlogs function inside Home component to update the state.
 
@@ -879,7 +879,7 @@ export default BlogList;
 
 ## State `useEffect` Hook
 
-The Effect Hook lets you perform side effects in function components. This useEffect Hook run code on every render. useEffect function fires on every render. When we change the data it rerender this to the DOM. Whenever the state changes useEffect function rerenders.
+The Effect Hook lets you perform side effects in function components. This useEffect Hook run code on every render. useEffect function fires on every render. When we change the data, it rerenders this to the DOM. Whenever the state changes, the useEffect function rerenders.
 
 Whether or not you’re used to calling these operations “side effects” (or just “effects”), you’ve likely performed them in your components before.
 
@@ -909,7 +909,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    console.log('use effect ran');
+    console.log('use effect run');
     console.log(blogs);
   })
 
@@ -927,9 +927,9 @@ export default Home;
 
 ## useEffect Dependencies
 
-Using useEffect Dependencies to stop rerenders by Dependency array which is passed inside useEffect function as a second argument
+Using useEffect Dependencies to stop rerenders by Dependency array which is passed inside useEffect function as a second argument.
 
-You don't alway want to run a function after every single renders, maybe a only a certain renders. To do that we can use something called dependency array. This is basically an array that we can pass into an useEffect hook as an second argument. This hook only runs the function after the first initial render. Thereafter if the state changes it won't run the function again. It only runs it once.
+You don't always want to run a function after every single renders, maybe only a certain render. To do that we can use something called 'dependency array'. This is basically an array that we can pass into an useEffect hook as an second argument. This hook only runs the function after the first initial render. Thereafter if the state changes it won't run the function again. It only runs it once.
 
 ```sh
 useEffect(() => {
@@ -1095,7 +1095,7 @@ export default Home;
 
 ## Conditional Loading Message
 
-Currently in our application we render the blog list once we have blog data and until then we don't render it. But it would be nice to create a loading massage whilst the data is being fetched so that user knows something is loading if it takes time to do. Here our fetch is very quick because we're just making a fetch to our own computer but most times the fetch will be to another server over the internet and slower in in which case the user will see that loading message while we fetch the data. So, to do this we're going to create an additional piece of state inside the home component and that is gonna be called isPending here.
+Currently in our application we render the blog list once we have blog data and until then we don't render it. But it would be nice to create a loading massage whilst the data is being fetched so that user knows something is loading if it takes time to do. Here our fetch is very quick because we're just making a fetch to our own computer but most times the fetch will be to another server over the internet and slower. In which case the user will see that loading message while we fetch the data. So, to do this we're going to create an additional piece of state inside the home component and that is gonna be called isPending here.
 
 In Home.js file:
 
@@ -1135,7 +1135,7 @@ export default Home;
 
 ## Handling Fetch Errors
 
-We want to handle any kind of error inside the Home component when we trying to make the fetch. This error can be set back from server or some kind of connection error. In that case we wouldn't get the data back and let user know some kind of error. So, add a catch block after fetching data:
+We want to handle any kind of error inside the Home component when we try to make the fetch. This error can be set back from server or some kind of connection error. In that case we wouldn't get the data back and let user know some kind of error. So, add a catch block after fetching data:
 
 ```sh
 import { useEffect, useState } from "react";
@@ -1187,7 +1187,7 @@ export default Home;
 Previously we've put together all those logic inside the useEffect hook to update 
 all of these state properties to output the data or loading massage or an error if there is one.
 But what if we want to do this same kind of thing in another component in the future where we fetch some data or create state for the data itself the error and is pending property etc. We then have to rewrite all of these code in that component again. Which is not easy to manage especially if you put these code in a few different places in your application.
-So, it would be good if we could make use of all of this code again in different component so make it bit more reusable so we don't have to continually write it out again and again.
+So, it would be good if we could make use of all of this code again in different component so make it bit more reusable so we don't have to continuously write it out again and again.
 So when we do something like this by externalizing the logic into its own file we're creating something called a `Custom Hook` in react. It's a bit like useState & useEffect have their own specific functionality as hooks. We'd be creating a Custom Hook with a specific ability to fetch data. 
 
 In order to make this custom hook, we first make a new file named useFetch.js in the source folder:
@@ -1253,6 +1253,8 @@ export default Home;
 ---
 
 ## React Router
+
+React Router is a standard library for routing in React. It enables the navigation among views of various components in a React Application, allows changing the browser URL, and keeps the UI in sync with the URL.
 
 By far our application has one single page, we don't navigate around to other pages we just have this single home page and most websites you create are gonna have probably multi page. So we need a way to introduce multiple different pages or routes in our react application and the way we do this in react is with the react router.
 
