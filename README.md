@@ -1298,11 +1298,55 @@ export default App;
 
 ## Exact Match Routes
 
-Exact Match Routes
+Let's set another route and to do this we need another page component. This gonna be a web form to add new blog. We name it Create component.
+
+In Create.js create a function Create:
 
 ```sh
+const Create = () => {
+  return (
+    <div className="create">
+      <h2>Add a New Blog</h2>
+    </div>
+  );
+}
 
+export default Create;
 ```
+
+In App.js file import the router:
+
+```sh
+import Navbar from './Navbar';
+import Home from './Home';
+import Create from './Create';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />        // same on every page
+        <div className="content">
+          <Switch>        // content inside switch change on every page
+            <Route exact path="/">        // root path
+              <Home />
+            </Route>
+            <Route path="/create">        // another root path
+              <Create />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+We want to match this if this is exactly the route So we add `exact` prop. So now it only match this if it's exactly the url we go to not just inside the url.
+
 
 ---
 
