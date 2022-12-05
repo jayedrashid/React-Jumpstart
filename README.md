@@ -493,6 +493,14 @@ In index.css file
   margin: 40px auto;
   padding: 20px;
 }
+.blog-preview:hover {
+  box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+}
+.blog-preview h2 {
+  font-size: 20px;
+  color: #f1356d;
+  margin-bottom: 8px;
+}
 ```
 
 ### `Inline Style`
@@ -1352,14 +1360,171 @@ We want to match this if this is exactly the route So we add `exact` prop. So no
 
 ## Router Links
 
-Router Links
+Go to the Navbar.js file import the link tag from react router dom package:
 
+```sh
+import { Link } from 'react-router-dom';
+
+const Navbar = () => {
+  return (
+    <nav className="navbar">
+      <h1>The Dojo Blog</h1>
+      <div className="links">
+        <Link to="/">Home</Link>        // a is replaced by 'Link' & href is repalced by 'to'
+        <a to="/create">New Blog</a>
+      </div>
+    </nav>
+  );
+}
+
+export default Navbar;
+```
+
+A link component doesn't have an href like an anchor tag instead it uses 'to' by this way react prevents reloading full html and only triggers the route link which is previously defined with "/create".
 
 ---
 
 ## useEffect Cleanup
 
-useEffect Cleanup
+Click 'New Blog' then click 'home' then click 'New Blog' again will show error in console. Because it still tries to update the Home component which is not in browser anymore. 
+
+We will be using a combination of Cleanup function in a useEffect hook and something called 'Abort Controller' in JavaScript. 
+Now we will place the Cleanup function inside useEffect hook and we will just return it. That returned value is a function. When the component that uses the useEffect or this use fetch hook on mounts it fires that returned Cleanup function. 
+We will create Abort Controller inside useEffect. As because we want to stop the fetch that's going on in the background so that we don't try to update the state. For this we will use Abort Controller. We can associate it with a specific fetch request. Once we have associated it with a fetch we can use the Abort Controller to stop the fetch. 
+
+Go to the usefetch.js:
+
+```sh
+import { useState, useEffect } from 'react';
+
+const useFetch = (url) => {
+  const [data, setData] = useState(null);
+  const [isPending, setIsPending] = useState(true);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    const abortCont = new AbortController();         // Abort Controller
+    
+    setTimeout(() => {
+      fetch(url, { signal:  abortCont.signal })
+       .then(res => {
+        if (!res.ok) { // error coming back from server
+          throw Error('could not fetch the data for that resource');
+        } 
+        return res.json();
+      })
+      
+      .then(data => {
+        setIsPending(false);
+        setData(data);
+        setError(null);
+      })
+      .catch(err => {
+        if (err.name === 'AbortError') {           // stop the fetch
+          console.log('fetch aborted');
+        } else {
+        setIsPending(false);
+        setError(err.message);
+        }
+      })
+    }, 1000);
+    
+    return () => abortCont.abort();
+  }, [url])
+
+  return { data, isPending, error };
+}
+ 
+export default useFetch;
+```
+
+
+
+
+---
+
+## Route Parameters
+
+A route is where a certain part of it is changable but regardless of what that changable part is it still renders the same page or component. Example is a blog details page. eg: `/blogs/123` or `/blogs/456` or `/blogs/789` in these cases we would still render the same blog details components but instead we would show the blog with these ids. So this changable part of the route is knows as a route parameter. It's like a variable inside a route. In our react application we need to be able to use route parameters and access those route parameters from our components. So that in the component we can use these ids for example to fetch data for that particular blog. 
+
+Create BlogDetails.js file:
+
+```sh
+import { useParams } from 'react-router-dom';
+
+const BlogDetails = () => {
+  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+
+  return (
+    <div className="blog-details">
+       <h2>Blog Details - { id } </h2>
+    </div>
+  );
+}
+
+export default BlogDetails;
+```
+
+In App.js file import the router:
+
+```sh
+import Navbar from './Navbar';
+import Home from './Home';
+import Create from './Create';
+import BlogDetails from './BlogDetails';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />        // same on every page
+        <div className="content">
+          <Switch>        // content inside switch change on every page
+            <Route exact path="/">        // root path
+              <Home />
+            </Route>
+            <Route path="/create">        // another root path
+              <Create />
+            </Route>
+            <Route path="/blogs/:id">        // Route Parameters
+              <BlogDetails />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+
+In BlogList.js file import router:
+
+```sh
+import { Link } from 'react-router-dom';
+
+const BlogList = ({ blogs, title, handleDelete }) => {
+  return (
+    <div className="blog-list">
+      <h2>{ title }</h2>
+      {blogs.map(blog => (
+        <div className="blog-preview" key={blog.id} >
+          <Link to={`/blogs/${blog.id}`}>                 // made it dynamic with {}
+             <h2>{ blog.title }</h2>
+             <p>Written by { blog.author }</p>
+          </Link>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default BlogList;
+```
+
 
 ---
 
