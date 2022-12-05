@@ -554,28 +554,30 @@ export default Home;
 
 ---
 
+## React Hooks
+
+React Hooks are simple JavaScript functions that we can use to isolate the reusable part from a functional component. Hooks can be stateful and can manage side-effects. React hook is one of the holy grail of react. React hooks just makes your work so much easier, react hooks are designed to simplify difficult tasks like re-rendering the UI, managing state, picking an element from the DOM and lots more. There is a hook for most things you want and if there isn’t any react hook that meets your need then you can also build your own custom hook.
+
+This ensures that there is less broiler plate code, we would have written more code if this was done without hooks or from a class based component. Hooks also eliminate the need for listening to multiple life cycle events on components, the hook manages all that behind the scene for you.
+
+Hook in react is a special type of function that does a special type of job. You can tell a hook by it's name because it starts with 'use'. So useState hook gives us a way to make a reactive value and also provides us way to change the value.
+
+We can use the hook as many times as we want in a component for different values. This value can be an array, object, boolean, string, number.
+
+You can't put hooks inside if conditions, functions, loops etc. So, the can't be nested. Hooks will always stay at the top level in your App component.
+
+
+
 ## State `useState` Hook
 
 Using State (useState hook)
 
 React components has a built-in state object. The state object is where you store property values that belongs to the component. When the state object changes, the component re-renders.
 
-State is handled & updated inside of a component and change the value.
-
-React Hooks
-This is one of the holy grail of react. React hooks just makes your work so much easier, react hooks are designed to simplify difficult tasks like re-rendering the UI, managing state, picking an element from the DOM and lots more. There is a hook for most things you want and if there isn’t any react hook that meets your need then you can also build your own custom hook.
-
-We used a very simple react hook here that allows us to update the state of a component and re render the UI anytime there is a state change. Now most people would say, there are other frameworks that makes state management a built in feature, say for instance Svelte or Angular which is reactive by default, but this way is more concise when compared to using vanilla JavaScript or even jQuery.
-
-This ensures that there is less broiler plate code, we would have written more code if this was done without hooks or from a class based component. Hooks also eliminate the need for listening to multiple life cycle events on components, the hook manages all that behind the scene for you.
-
-Hook in react is a special type of function that does a special type if job. You can tell a hook by it's name because it starts with 'use'. So useState hook gives us a way to make a reactive value and also provides us way to change the value.
-
-We can use the hook as many times as we want in a component for different values. This value can be an array, object, boolean, string, number.
+State is handled & updated inside of a component and change the value. 
+State is any data that changes application and so does ui. 
 
 So, when you need a reactive value that might change in some point we will use `useState` hook todo that. We pass in an initial value 'mario' and we can output that value in a template { } and then we call the `set` function which is second value in the array [ name, setName ] to update it so that triggers a re-render and the new value is going to output to the browser.
-
-You can't put hooks inside if conditions, functions, loops etc. So, the can't be nested. Hooks will always stay at the top level in your App component.
 
 When useState comes in a variable, the array must be destructured inline and returned 2 values.
 
@@ -666,7 +668,6 @@ export default Home;
 
 ## 10 Hooks
 
-State = any data that changes application and so does ui.
 React has 10 built-in Hooks:
 
 - Basic Hooks
