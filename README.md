@@ -1525,6 +1525,211 @@ const BlogList = ({ blogs, title, handleDelete }) => {
 export default BlogList;
 ```
 
+---
+
+## Reusing Custom Hooks
+
+Now we can click one of these links to go through to the blog details page where we have access to that route parameter the id for that blog. S o we can use that inside this component now to make a fetch request for the details of that particular blog from the json db file. So, to do that we are gonna be reusing our custom hook `useFetch`. Now remenber this returns 3 values. The data we're trying to fetch which is the individual blog, the isPending property which is 'true' or 'false', then an error if there is one. 
+
+All we have to do is to use this hook in the blog details and pass in the url.
+
+In BlogDetails.js file:
+
+```sh
+import { useParams } from 'react-router-dom';
+import useFetch from './useFetch';
+
+const BlogDetails = () => {
+  const { id } = useParams();
+  const { data: blog, error, isPending } = useFetch('http://localhost:8000/blogs/' + id);
+
+  return (
+    <div className="blog-details">
+       { isPending && <div>Loading...</div> }
+       { error && <div>{ error }</div> }
+       { blog && (
+         <article>
+           <h2>{ blog.title }</h2>
+           <p>Written by { blog.author }</p>
+           <div>{ blog.body }</div>
+         <article>
+       )}
+    </div>
+  );
+}
+
+export default BlogDetails;
+```
+
+---
+
+## Controlled Inputs Forms
+
+We will now create web forms for react. So that a user can type a new blog and add that later to send a post request. So it adds it to the json data. In order to do it we need to create few Controlled Inputs and different form fields.
+
+Controlled Inputs in react is basically a way of setting up input fields in forms so that we can track their values. If it is a text input field where a user can type into it and we can store that value in a state and if that state changes it updates the value that we see in the input field. So we always keeping the input field and our state in sync with each other. 
+
+In Create.js file make a form:
+
+```sh
+import { useState } from 'react';
+
+const Create = () => {
+  const [ title, setTitle ] = useState('');
+  const [ body, setBody ] = useState('');
+  const [ author, setAuthor ] = useState('mario');
+
+  return (
+    <div className="create">
+      <h2>Add a New Blog</h2>
+      <form>
+        <label>Blog Title:</label>
+        <input type="text" required value={ title } onChange={ (e) => setTitle(e.target.value) } ></>
+        <label>Blog Body:</label>
+        <textarea required value={ body } onChange={ (e) => setBody(e.target.value) } ></textarea>
+        <label>Blog Author:</label>
+        <select value={ author } onChange={ (e) => setAuthor(e.target.value) } >
+          <option value="mario">Mario</option>
+          <option value="yoshi">Yoshi</option>
+        </select>
+        <button>Add Blog</button>
+        <p>{ title }</p>
+        <p>{ body }</p>
+        <p>{ author }</p>
+      </form>
+    </div>
+  );
+}
+
+export default Create;
+```
+
+
+---
+
+## Submit Events
+
+A route is where can use these ids for example to fetch data for that particular blog. 
+
+Create BlogDetails.js file:
+
+```sh
+import { useParams } from 'react-router-dom';
+
+const BlogDetails = () => {
+  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+
+  return (
+    <div className="blog-details">
+       <h2>Blog Details - { id } </h2>
+    </div>
+  );
+}
+
+export default BlogDetails;
+```
+
+
+
+---
+
+## Making Post Request
+
+A route is where can use these ids for example to fetch data for that particular blog. 
+
+Create BlogDetails.js file:
+
+```sh
+import { useParams } from 'react-router-dom';
+
+const BlogDetails = () => {
+  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+
+  return (
+    <div className="blog-details">
+       <h2>Blog Details - { id } </h2>
+    </div>
+  );
+}
+
+export default BlogDetails;
+```
+
+
+---
+
+## Programmatic Redirects
+
+A route is where can use these ids for example to fetch data for that particular blog. 
+
+Create BlogDetails.js file:
+
+```sh
+import { useParams } from 'react-router-dom';
+
+const BlogDetails = () => {
+  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+
+  return (
+    <div className="blog-details">
+       <h2>Blog Details - { id } </h2>
+    </div>
+  );
+}
+
+export default BlogDetails;
+```
+
+
+---
+
+## Deleting Blogs
+
+A route is where can use these ids for example to fetch data for that particular blog. 
+
+Create BlogDetails.js file:
+
+```sh
+import { useParams } from 'react-router-dom';
+
+const BlogDetails = () => {
+  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+
+  return (
+    <div className="blog-details">
+       <h2>Blog Details - { id } </h2>
+    </div>
+  );
+}
+
+export default BlogDetails;
+```
+
+
+---
+
+## 404 Pages
+
+A route is where can use these ids for example to fetch data for that particular blog. 
+
+Create BlogDetails.js file:
+
+```sh
+import { useParams } from 'react-router-dom';
+
+const BlogDetails = () => {
+  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+
+  return (
+    <div className="blog-details">
+       <h2>Blog Details - { id } </h2>
+    </div>
+  );
+}
+
+export default BlogDetails;
+```
+
 
 ---
 
