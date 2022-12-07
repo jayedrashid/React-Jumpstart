@@ -1618,24 +1618,46 @@ export default Create;
 
 ## Submit Events
 
-A route is where can use these ids for example to fetch data for that particular blog. 
+When a button is pressed inside a form, it fires a submit event on the form itself so that we can listen that submit event and react to it.  
 
-Create BlogDetails.js file:
+In Create.js file include a submit event:
 
 ```sh
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
-const BlogDetails = () => {
-  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+const Create = () => {
+  const [ title, setTitle ] = useState('');
+  const [ body, setBody ] = useState('');
+  const [ author, setAuthor ] = useState('mario');
+  
+   const handleSubmit = (e) => {
+     e.preventDefault();                           // stop page refresh
+     const blog = { title, body, author };         // create blog object
+   };
 
   return (
-    <div className="blog-details">
-       <h2>Blog Details - { id } </h2>
+    <div className="create">
+      <h2>Add a New Blog</h2>
+      <form onSubmit={ handleSubmit }>             // handleSubmit function added
+        <label>Blog Title:</label>
+        <input type="text" required value={ title } onChange={ (e) => setTitle(e.target.value) } ></>
+        <label>Blog Body:</label>
+        <textarea required value={ body } onChange={ (e) => setBody(e.target.value) } ></textarea>
+        <label>Blog Author:</label>
+        <select value={ author } onChange={ (e) => setAuthor(e.target.value) } >
+          <option value="mario">Mario</option>
+          <option value="yoshi">Yoshi</option>
+        </select>
+        <button>Add Blog</button>
+        <p>{ title }</p>
+        <p>{ body }</p>
+        <p>{ author }</p>
+      </form>
     </div>
   );
 }
 
-export default BlogDetails;
+export default Create;
 ```
 
 
@@ -1644,24 +1666,60 @@ export default BlogDetails;
 
 ## Making Post Request
 
-A route is where can use these ids for example to fetch data for that particular blog. 
+We will make a request to the json server. This time we will not use useFetch hook to make a universal post.
 
-Create BlogDetails.js file:
+We will make this post requet inside the handleSubmit function because we're gonna make this request once in whole application.
+
+In Create.js file create a post request:
 
 ```sh
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
-const BlogDetails = () => {
-  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+const Create = () => {
+  const [ title, setTitle ] = useState('');
+  const [ body, setBody ] = useState('');
+  const [ author, setAuthor ] = useState('mario');
+  const [ isPending, setIsPending ] = useState(false);         // a state for loading message
+                                         // we don't want loading run from start so false
+  
+   const handleSubmit = (e) => {
+     e.preventDefault();
+     const blog = { title, body, author };
+     
+     setIsPending(true);          // loading starts
+     
+     
+     fetch('http://localhost:8000/blogs', {              // same endpoint from home component
+       method: 'POST',
+       headers: { "Content-Type:" "application/json" },      // we're sending json data
+       body: JSON.stringify(blog)                        // from object to string
+     }).then(() => {              // since it's asynchronous and returns a promise so 'then'
+        console.log('new blog added')
+        setIsPending(false);      // false when loading completed
+      });
+   }
 
   return (
-    <div className="blog-details">
-       <h2>Blog Details - { id } </h2>
+    <div className="create">
+      <h2>Add a New Blog</h2>
+      <form onSubmit={ handleSubmit }>
+        <label>Blog Title:</label>
+        <input type="text" required value={ title } onChange={ (e) => setTitle(e.target.value) } ></>
+        <label>Blog Body:</label>
+        <textarea required value={ body } onChange={ (e) => setBody(e.target.value) } ></textarea>
+        <label>Blog Author:</label>
+        <select value={ author } onChange={ (e) => setAuthor(e.target.value) } >
+          <option value="mario">Mario</option>
+          <option value="yoshi">Yoshi</option>
+        </select>
+        { !isPending && <button>Add Blog</button> }                  // when false
+        { isPending && <button disabled>Adding Blog...</button> }      // when true
+      </form>
     </div>
   );
 }
 
-export default BlogDetails;
+export default Create;
 ```
 
 
@@ -1669,44 +1727,103 @@ export default BlogDetails;
 
 ## Programmatic Redirects
 
-A route is where can use these ids for example to fetch data for that particular blog. 
+Now we successfully added new blog by submitting the form. But once we added the blog it stays in the same page. We want it redirect to the home page after submitting the form. In order to do so we need another hook that is called `useHistory`. It helps to back and forward to history and also add a new page to the history in another words redirect them to a new route. 
 
-Create BlogDetails.js file:
+In Create.js file create a new hook:
 
 ```sh
-import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
-const BlogDetails = () => {
-  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+const Create = () => {
+  const [ title, setTitle ] = useState('');
+  const [ body, setBody ] = useState('');
+  const [ author, setAuthor ] = useState('mario');
+  const [ isPending, setIsPending ] = useState(false);
+  const history = useHistory();  
+  
+   const handleSubmit = (e) => {
+     e.preventDefault();
+     const blog = { title, body, author };
+     
+     setIsPending(true);          // loading starts
+     
+     
+     fetch('http://localhost:8000/blogs', {              // same endpoint from home component
+       method: 'POST',
+       headers: { "Content-Type:" "application/json" },      // we're sending json data
+       body: JSON.stringify(blog)                        // from object to string
+     }).then(() => {              // since it's asynchronous and returns a promise so 'then'
+        console.log('new blog added')
+        setIsPending(false);      // false when loading completed
+        // history.go(-1);      // go back (to go forward give it a positive integer +1)
+        history.push('/');     // go to home page
+     });
+   }
 
   return (
-    <div className="blog-details">
-       <h2>Blog Details - { id } </h2>
+    <div className="create">
+      <h2>Add a New Blog</h2>
+      <form onSubmit={ handleSubmit }>
+        <label>Blog Title:</label>
+        <input type="text" required value={ title } onChange={ (e) => setTitle(e.target.value) } ></>
+        <label>Blog Body:</label>
+        <textarea required value={ body } onChange={ (e) => setBody(e.target.value) } ></textarea>
+        <label>Blog Author:</label>
+        <select value={ author } onChange={ (e) => setAuthor(e.target.value) } >
+          <option value="mario">Mario</option>
+          <option value="yoshi">Yoshi</option>
+        </select>
+        { !isPending && <button>Add Blog</button> }                  // when false
+        { isPending && <button disabled>Adding Blog...</button> }      // when true
+      </form>
     </div>
   );
 }
 
-export default BlogDetails;
+export default Create;
 ```
+
+
 
 
 ---
 
 ## Deleting Blogs
 
-A route is where can use these ids for example to fetch data for that particular blog. 
+Now we want to delete a blog by clicking a button at the bottom of the blog detail component. 
 
-Create BlogDetails.js file:
+In BlogDetails.js file create a delete button:
 
 ```sh
 import { useParams } from 'react-router-dom';
+import useFetch from './useFetch';
 
 const BlogDetails = () => {
-  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
+  const { id } = useParams();
+  const { data: blog, error, isPending } = useFetch('http://localhost:8000/blogs/' + id);
+  const history = useHistory(); 
+  
+  const handleClick = (e) => {
+    fetch('http://localhost:8000/blogs' + blog.id , {        // endpoint home component
+       method: 'DELETE'
+     }).then(() => {              // since it's asynchronous and returns a promise so 'then'
+        history.push('/');     // go to home page
+     });
+  }
 
   return (
     <div className="blog-details">
-       <h2>Blog Details - { id } </h2>
+       { isPending && <div>Loading...</div> }
+       { error && <div>{ error }</div> }
+       { blog && (
+         <article>
+           <h2>{ blog.title }</h2>
+           <p>Written by { blog.author }</p>
+           <div>{ blog.body }</div>
+           <button onClick={ handleClick }>Delete</button>    // del btn with click handler
+         <article>
+       )}
     </div>
   );
 }
@@ -1719,26 +1836,67 @@ export default BlogDetails;
 
 ## 404 Pages
 
-A route is where can use these ids for example to fetch data for that particular blog. 
+It is 404 component or not found component. We want to stop routing of any unexpected url.
 
-Create BlogDetails.js file:
+Create NotFound.js file:
 
 ```sh
-import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const BlogDetails = () => {
-  const { id } = useParams();         // creating new hook to connect exact id of the blogs route
-
+const NotFound = () => {
   return (
-    <div className="blog-details">
-       <h2>Blog Details - { id } </h2>
+    <div className="not-found">
+       <h2>Sorry!</h2>
+       <p>That page cannot be found.</p>
+       <Link to="/">Back to the homepage...</Link>
     </div>
   );
 }
 
-export default BlogDetails;
+export default NotFound;
 ```
 
+
+In App.js file set the home route:
+
+```sh
+import Navbar from './Navbar';
+import Home from './Home';
+import Create from './Create';
+import BlogDetails from './BlogDetails';
+import NotFound from './NotFound';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />        // same on every page
+        <div className="content">
+          <Switch>        // content inside switch change on every page
+            <Route exact path="/">        // root path
+              <Home />
+            </Route>
+            <Route path="/create">        // another root path
+              <Create />
+            </Route>
+            <Route path="/blogs/:id">        // Route Parameters
+              <BlogDetails />
+            </Route>
+            <Route path="*">        // Set Home Route
+              <NotFound />
+            </Route>
+          </Switch>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+Here we added `*` on the path means 'catch any other routes'.
 
 ---
 
