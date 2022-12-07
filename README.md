@@ -213,7 +213,7 @@ root
 
 #### `node_modules` Folder
 
-It holds all of our project dependencies
+It holds all of our project dependencies and node packages.
 
 - Application dependencies
 - Development dependencies
