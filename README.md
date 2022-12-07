@@ -1,6 +1,6 @@
 # `ReactJS: Notes`
 
-`A JavaScript Library For Building User Interfaces`
+`A JavaScript Library For Building User Interfaces`. React is a Declarative, Component-Based, JavaScript library for building User Interfaces.
 
 <p align="center">
  <img width="400px" src="https://miro.medium.com/max/1400/0*EitUXT-pqbaQSCTt.gif" align="center" alt="GitHub Readme Stats" />
@@ -234,7 +234,16 @@ All of our working files will be in this folder. Here, the index.js file will ki
 
 ## JSX
 
-JSX is a react extension to JavaScript that allows us to write HTML in JavaScript files, do not however think that JSX is just a smile templating language. The use of JSX allows us to keep our component logic and UI in a single file without bloating it. JSX allows us to interpret JavaScript expression and statements by wrapping it in curly braces, it actually compiles first and is faster than the actual JavaScript we write outside JSX.
+It is a syntax extension to JavaScript. We recommend using it with React to describe what the UI should look like. JSX may remind you of a template language, but it comes with the full power of JavaScript. JSX produces React “elements”. 
+
+JSX stands for JavaScript xml. It allows html like syntax inside a JavaScript file. Then when this component is rendered to the DOM that jsx is compiled into regular JavaScript by babel compiler. That JavaScript injects this html like structure into the DOM. this is the reason we need babel in our html file. Because the browser doesn’t understand jsx and it needed to be compiled to work. 
+
+In JSX we cannot use class attributes because ‘class’ is a reserved keyboard in JavaScript. So instead we’re gonna use className attributes. 
+
+In JSX we can have only one single root element (div tag). You can’t add another root element next to it. Because JSX expressions must have one parent element. All we can do is to nest as many elements as we want inside one single parent element. 
+
+In JSX we can output dynamic values or expressions inside templates. So create a variable (eg: string) as const and output that somewhere in the template. To do this we need to put a curly brace {} as a dynamic value. Inside that we need to put a JavaScript expression or variable. 
+We can also use JavaScript methods with those variables. Eg: {title.toUpperCase()}.
 
 In App.js file there is a function (can be an arrow function) called App which returns some html looking codes named JSX. Here babel compiles all these JSX template codes to html when we save the file and renders html to the DOM. In JSX html class turns into `className`.
 
