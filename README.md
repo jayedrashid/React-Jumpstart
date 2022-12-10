@@ -416,7 +416,7 @@ Output: Hello World!
 
 Let us see step-wise what is happening in the above example: 
 1. We call the ReactDOM.render() as the first parameter.
-2. React then calls the component Welcome, which returns <h1>Hello World!</h1>; as the result.
+2. React then calls the component Welcome, which returns `<h1>Hello World!</h1>;` as the result.
 3. Then the ReactDOM efficiently updates the DOM to match with the returned element and renders that element to the DOM element with id as “root”.
 
 ---
