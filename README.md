@@ -261,16 +261,81 @@ function App() {
 
 ---
 
+## Types of Components
+
+The component concept is quite simple to understand. Basically, it is a visual software element with its own state, receives some properties, and implements its own rendering logic. But are all the components the same? Can we rank them or differentiate them into component types?
+
+Types of Behavioral Components
+Depending on the type of behavior that the component will perform, we can differentiate the components in Stateless, Stateful, Pure Components, or HOC. Therefore, you are going to know and understand each of these types of components:
+
+- Stateful Component
+This type of component is the most used. The main characteristics of this type of component are that they use encapsulation in classes, have a state that they define and update, and each change in both props and state calls the render method.
+
+- Stateless components
+This component is a simplified version of the most common component: Stateful. These components are defined as functions in vanilla js and do not have or work with the state. The only data that these types of components work with is with the received props, and it also does not allow working with overwriting the methods of their life cycle. The advantages of these components are that they are easy to write, easily testable, and improve performance.
+
+- Pure Component
+This type of component is similar to the stateful ones in terms of its definition. They are also implemented as classes, but in this case, they will extend from React.PureComponent. Like stateless components, this type of component does not define a state, purely just a visual component. These components are optimized for better rendering performance since they only change if they detect a change in their props, and these are different from the previous values.
+
+- Higher-Order Components or HOC.
+This type of component is a design pattern used in React applications. This otherwise named design pattern in this ecosystem faithfully reminds me of the Decorator pattern.
+The higher-order components (HOC) take another parameter component, extending its functionality and returning a new component with extended functionality. If the properties of the HOC change, the HOC will render again and update the component wrapped in it.
+This type of component is used to implement common functionalities such as pagination, intercept and modify the rendering, make calls to APIs, feed the wrapped component, and control the inputs of forms.
+This type of component is used in libraries widely used in the React ecosystem, such as react-redux and react-redux-form. Basically, it is a good method to decouple functionality, extend the functionality of our components and reuse the code throughout our application.
+
+
+Types of Structural Components
+These components do not technically correspond to any API element, class, or function in React. They are just purely conceptual. This categorization aims to organize our application so that it is simpler and more intuitive to develop. This categorization is not a React standard but a community standard and allows us to define architecture in our applications.
+
+- Visual Components
+These types of components should only focus and focus their efforts on how the UI should be rendered. These types of components can be made up of other visual elements and often include styles and classes. All the data involved in its rendering must be received through props, so it must be independent of calls to external services. These components are usually of the Stateless type since they do not need a state and must manage their actions to parent components through their props.
+
+- Container Components
+These components must put aside the interface and take care of the functional part. They are simply containers for other components and are in charge of managing the interaction logic and the data logic, making the necessary calls to external services. Unlike the previous ones, they usually manage their own state, being an important node in the hierarchy of the component tree.
+
+
+
+---
+
 ## App Component
 
-Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page provides an introduction to the idea of components.
+Components let you split the UI into independent, reusable pieces, and think about each piece in isolation.
 
 Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called “props”) and return React elements describing what should appear on the screen.
 
-React Supports Class Based or Functional Components
-With react there is more than one approach to compose your UI. If you like complexity, forgive my sarcasm then you can use class based components. A class component is Just a class that extends React.Component, it has a render method that is called to build and return our UI.
+Components are autonomous, reusable pieces of code. Components are the fundamental units of React applications. Although they work independently and output HTML, they do the same thing as JavaScript functions. Components allow us to avoid writing unnecessary code. Components come in two types:
+- Functional components
+- Class components
 
-Some things should be simple and straightforward so I prefer using functional components. You just declare and export a function that returns our UI as we did in the earlier example. So whatever style you are comfortable with , react has got you.
+A Component is one of the core building blocks of React. In other words, we can say that every application you will develop in React will be made up of pieces called components. Components make the task of building UIs much easier. You can see a UI broken down into multiple individual pieces called components and work on them independently and merge them all in a parent component which will be your final UI. 
+You can see in the below image we have broken down the UI of GeeksforGeeks’s homepage into individual components. 
+
+Google’s custom search at the top can be seen as an individual component, the navigation bar can be seen as an individual component, the sidebar is an individual component, the list of articles or post is also an individual component and finally, we can merge all of these individual components to make a parent component which will be the final UI for the homepage.
+Components in React basically return a piece of JSX code that tells what should be rendered on the screen. In React, we mainly have two types of components: 
+ 
+
+1. Functional Components: Functional components are simply javascript functions. We can create a functional component in React by writing a javascript function. These functions may or may not receive data as parameters, we will discuss this later in the tutorial. Below example shows a valid functional component in React: 
+
+```sh
+const Democomponent=()=>
+{
+    return <h1>Welcome Message!</h1>;
+}
+```
+
+2. Class Components: The class components are a little more complex than the functional components. The functional components are not aware of the other components in your program whereas the class components can work with each other. We can pass data from one class component to other class components. We can use JavaScript ES6 classes to create class-based components in React. Below example shows a valid class-based component in React: 
+
+```sh
+class Democomponent extends React.Component
+{
+    render(){
+          return <h1>Welcome Message!</h1>;
+    }
+}
+```
+
+The components we created in the above two examples are equivalent, and we also have stated the basic difference between a functional component and class component. We will learn about more properties of class-based components in further tutorials. For now, keep in mind that we will use functional component only when we are sure that our component does not require interacting or work with any other component. That is, these components do not require data from other components however we can compose multiple functional components under a single functional component. We can also use class-based components for this purpose but it is not recommended as using class-based components without need will make your application in-efficient.
+
 
 Whenever we create a component function, we must export it.
 
@@ -309,6 +374,50 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+
+
+---
+
+## Rendering Components
+
+In our previous post on rendering elements in React we have seen how elements initialized with DOM tags are rendered using ReactDOM.render() method. React is also capable of rendering user-defined components. To render a component in React we can initialize an element with a user-defined component and pass this element as the first parameter to ReactDOM.render() or directly pass the component as the first argument to the ReactDOM.render() method. 
+Below syntax shows how to initialize a component to an element: 
+
+```sh
+const elementName = <ComponentName />;
+```
+
+In the above syntax, the ComponentName is the name of the user-defined component. 
+Note: The name of a component should always start with a capital letter. This is done to differentiate a component tag with html tags.
+Below example renders a component named Welcome to the screen: 
+
+Open your index.js file from your project directory, and make the given below changes:
+
+src index.js:
+
+```sh
+
+import React from 'react'; 
+import ReactDOM from 'react-dom'; 
+  
+// This is a functional component 
+const Welcome=()=>
+{ 
+        return <h1>Hello World!</h1> 
+} 
+  
+ReactDOM.render( 
+    <Welcome />, 
+    document.getElementById("root") 
+); 
+```
+
+Output: Hello World!
+
+Let us see step-wise what is happening in the above example: 
+1. We call the ReactDOM.render() as the first parameter.
+2. React then calls the component Welcome, which returns <h1>Hello World!</h1>; as the result.
+3. Then the ReactDOM efficiently updates the DOM to match with the returned element and renders that element to the DOM element with id as “root”.
 
 ---
 
