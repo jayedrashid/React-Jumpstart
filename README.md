@@ -693,6 +693,28 @@ We can use the hook as many times as we want in a component for different values
 You can't put hooks inside if conditions, functions, loops etc. So, the can't be nested. Hooks will always stay at the top level in your App component.
 
 
+---
+
+
+## 10 Hooks
+
+React has 10 built-in Hooks:
+
+- Basic Hooks
+  - useState = handle reactive data
+  - useEffect = change over component life-cycle
+  - useContext
+- Additional Hooks
+  - useReducer
+  - useCallback
+  - useMemo
+  - useRef
+  - useImperativeHandle
+  - useLayoutEffect
+  - useDebugValue
+
+---
+
 
 ## State `useState` Hook
 
@@ -811,24 +833,6 @@ export default Home;
 
 ---
 
-## 10 Hooks
-
-React has 10 built-in Hooks:
-
-- Basic Hooks
-  - useState = handle reactive data
-  - useEffect = change over component life-cycle
-  - useContext
-- Additional Hooks
-  - useReducer
-  - useCallback
-  - useMemo
-  - useRef
-  - useImperativeHandle
-  - useLayoutEffect
-  - useDebugValue
-
----
 
 ## Outputting Lists
 
