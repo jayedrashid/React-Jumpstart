@@ -707,6 +707,22 @@ So, when you need a reactive value that might change in some point we will use `
 
 When useState comes in a variable, the array must be destructured inline and returned 2 values.
 
+To use the useState hook all we need to do is to call a useState() which is a function with a default value inside:
+
+```sh
+useState(4) 		// eg: 4 as default value
+```
+
+useState hook is going to return us an array of values. But we are going to destructure the array in line. Because, state always returns an array with two values. 
+
+```sh
+function App() { 
+	const [ count, setCount ] = useState(4);
+```
+
+Here very first value count is a state. It is going to be our current state at every single iteration of our render function which is App(). Second thing we are going to return is a function which is going to allow us to update our state and we call it setCount.
+
+
 ```sh
 const [name, setName] = useState(0);
 
@@ -727,6 +743,9 @@ const Counter = () => {
     setCount(count + 1);
     setCount(count + 1);  // batch not working
   }
+  
+  // Because, our count value here is just the value of count when we render our function.
+  
   const subtract = () => {
     setCount(count - 1);
   }
@@ -750,7 +769,7 @@ const Counter = () => {
 export default Home;
 ```
 
-Using `set` function right way by correcting above snippet:
+Anytime you modifying the state where you actually using the previous value of the state to create new value you need to make sure you use the function version of setting your state. So, using `prev` function right way by correcting above snippet:
 
 ```sh
   const add = () => {
