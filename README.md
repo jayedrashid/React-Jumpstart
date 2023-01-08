@@ -1235,6 +1235,10 @@ Routes management with Endpoints:
 
 Fetching Data with useEffect
 
+Fetch is a promise-based HTTP client. Fetch API is built into most modern browsers. We don't have to install or import anything. Fetch uses the body property. We need to serialize data into a JSON string to send data. Fetch has no url in request object. 
+
+The Fetch API provides a fetch() method defined on the window object. It also provides a JavaScript interface for accessing and manipulating parts of the HTTP pipeline (requests and responses). The fetch method has one mandatory argument- the URL of the resource to be fetched. This method returns a Promise that can be used to retrieve the response of the request. 
+
 We're going to use some fetch request inside our component using this endpoints:
 `http://localhost:8000/blogs`
 
@@ -1266,6 +1270,18 @@ const Home = () => {
 
 export default Home;
 ```
+
+
+---
+
+## Axios API with `useEffect`
+
+Axios API with useEffect
+
+Axios is a stand-alone third party package that can be easily installed. It is also a promise-based HTTP client. Axios uses the data property. Axios automatically stringifies data when sending JavaScript objects to the API using the POST method. Axios has url in request object. Axios Is More Secure, Featuring Built In Cross Site Forgery (XSRF) Protection. 
+
+Axios is a Javascript library used to make HTTP requests from node.js or XMLHttpRequests from the browser and it supports the Promise API that is native to JS ES6. It can be used intercept HTTP requests and responses and enables client-side protection against XSRF. It also has the ability to cancel requests. 
+
 
 ---
 
