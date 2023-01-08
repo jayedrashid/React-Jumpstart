@@ -1231,9 +1231,9 @@ Routes management with Endpoints:
 
 ---
 
-## Fetch Data with `useEffect`
+## Fetch API with `useEffect`
 
-Fetching Data with useEffect
+Fetch API with useEffect
 
 Fetch is a promise-based HTTP client. Fetch API is built into most modern browsers. We don't have to install or import anything. Fetch uses the body property. We need to serialize data into a JSON string to send data. Fetch has no url in request object. 
 
@@ -1281,6 +1281,35 @@ Axios API with useEffect
 Axios is a stand-alone third party package that can be easily installed. It is also a promise-based HTTP client. Axios uses the data property. Axios automatically stringifies data when sending JavaScript objects to the API using the POST method. Axios has url in request object. Axios Is More Secure, Featuring Built In Cross Site Forgery (XSRF) Protection. 
 
 Axios is a Javascript library used to make HTTP requests from node.js or XMLHttpRequests from the browser and it supports the Promise API that is native to JS ES6. It can be used intercept HTTP requests and responses and enables client-side protection against XSRF. It also has the ability to cancel requests. 
+
+
+```sh
+import './App.css'
+import { useEffect, useState } from "react";
+import Axios from "axios";
+
+function App() => {
+  const [counter, setCounter] = useState(0);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    Axios.get('http://randomuser.me/api').then((response) => {
+      setUser(response.data);
+    });
+  }, []);
+
+  return (
+    <div className="App">
+      {counter}{''}
+      <button onClick={() => {setCounter(counter + 1)}}>
+      	Increase
+      </button>}
+    </div>
+  );
+}
+
+export default App;
+```
 
 
 ---
