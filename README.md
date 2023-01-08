@@ -1072,6 +1072,33 @@ const Home = () => {
 export default Home;
 ```
 
+
+useEffect function will be called after the page has been rendered. Whenever state changes the useEffect function will be called. But, The useEffect with an empty dependency array will not refresh the page after the state changes. So that, we can now call data from API out of useEffect function. But without this empty dependency array the page will refresh every time we call an API and thus will make an infinite loop as well as hang the browser.
+
+Only you ever gonna run the code inside useEffect function whenever the options inside dependency array changed. The empty array never actually changes between different renders. Whenever the values of dependency array changed it affects the code inside useEffect function.
+
+Eg: We want to do something when resourceType changes:
+
+```sh
+useEffect(() => {
+	console.log(‘onmount’)
+}, [resourceType]);
+```
+
+Eg: We want to fetch data when resourceType changes:
+
+```sh
+useEffect(() => {
+	fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
+	.then(response => response.json());
+	.then(json =>console.log(json));
+}, [resourceType]);
+```
+
+
+
+
+
 ---
 
 ## useEffect Dependencies
